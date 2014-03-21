@@ -1,4 +1,4 @@
-Copyright (c) 2014 Boris Bera
+Copyright (c) 2014 Boris Bera, François Genois
 
 MIT License
 
