@@ -1,6 +1,8 @@
 Eldritch
 ========
 
+[![Build Status](https://travis-ci.org/beraboris/eldritch.svg?branch=master)](https://travis-ci.org/beraboris/eldritch)
+
 **This gem is in development and in no way shape or form production ready.**
 
 A ruby gem that adds parallel programming constructs to make your life a little easier.
