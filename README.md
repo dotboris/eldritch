@@ -1,7 +1,9 @@
 Eldritch
 ========
 
-TODO: Write a gem description
+**This gem is in development and in no way shape or form production ready.**
+
+A ruby gem that adds parallel programming constructs to make your life a little easier.
 
 Installation
 ------------
