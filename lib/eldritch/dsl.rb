@@ -12,6 +12,10 @@ module Eldritch
       end
     end
 
+    def sync(task)
+      task.value
+    end
+
     private
 
     def async_method_name(method)
