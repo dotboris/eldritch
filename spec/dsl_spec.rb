@@ -40,12 +40,6 @@ describe Eldritch::DSL do
       end
     end
 
-    context 'with 2+ arguments' do
-      it 'should raise an error' do
-        expect{klass.async(1,2)}.to raise_error(ArgumentError)
-      end
-    end
-
     context 'with 1 argument' do
       before do
         klass.class_eval do
