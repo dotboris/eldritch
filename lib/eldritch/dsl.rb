@@ -1,10 +1,10 @@
 module Eldritch
   module DSL
-    def async(*args, &block)
-      if args.size == 0
+    def async(method=nil, &block)
+      if block
         async_block(&block)
       else
-        async_method(*args)
+        async_method(method)
       end
     end
 
