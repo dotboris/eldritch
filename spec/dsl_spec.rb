@@ -6,6 +6,7 @@ describe Eldritch::DSL do
   describe '#async(method)' do
     let(:klass) do Class.new do
         extend Eldritch::DSL
+        include Eldritch::DSL
       end
     end
 
