@@ -3,9 +3,14 @@ require 'eldritch'
 include Eldritch::DSL
 
 async def foo
-  puts "running foo"
+  puts 'started foo'
+  sleep(1)
+  puts 'finished foo'
 end
 
+puts 'calling foo'
 foo
-sleep(1)
-puts "hello"
+puts 'doing something else'
+
+# waiting for everybody to stop
+Thread.list.reject{|t| t == Thread.current}.each &:join
