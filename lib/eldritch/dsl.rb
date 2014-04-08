@@ -6,7 +6,9 @@ module Eldritch
 
       target.send :alias_method, new_method, method
       target.send :define_method, method do |*args|
-        Thread.new { send new_method, *args }
+        task = Task.new {|t| t.value = send(new_method, *args) }
+        task.start
+        task
       end
     end
 
