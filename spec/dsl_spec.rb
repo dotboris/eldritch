@@ -3,13 +3,21 @@ require 'eldritch/dsl'
 require 'eldritch/task'
 
 describe Eldritch::DSL do
-  describe '#async(method)' do
-    let(:klass) do Class.new do
-        extend Eldritch::DSL
-        include Eldritch::DSL
-      end
+  let(:klass) do Class.new do
+      extend Eldritch::DSL
+      include Eldritch::DSL
     end
+  end
 
+  describe '#sync' do
+    it 'should call task.value' do
+      task = double(:task)
+      expect(task).to receive(:value)
+      klass.sync(task)
+    end
+  end
+
+  describe '#async(method)' do
     it 'should create a __async method' do
       klass.class_eval do
         async def foo; end
