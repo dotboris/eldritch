@@ -61,7 +61,7 @@ describe Eldritch::DSL do
         allow(Thread).to receive(:new).and_yield(double(:task).as_null_object)
 
         klass.class_eval do
-          async def foo(a,b,c); end
+          async def foo(_,_,_); end
         end
         instance = klass.new
         expect(instance).to receive(:__async_foo).with(1,2,3)
