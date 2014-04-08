@@ -1,7 +1,11 @@
 module Eldritch
   module DSL
     def async(method)
-      alias_method async_method_name(method), method
+      new_method = async_method_name(method)
+      alias_method new_method, method
+      define_method method do |*args|
+        Thread.new { send new_method, *args }
+      end
     end
 
     private
