@@ -18,6 +18,28 @@ describe Eldritch::DSL do
   end
 
   describe '#async' do
+    context 'with 0 arguments' do
+      it 'should return a task' do
+        expect(klass.async {}).to be_a(Eldritch::Task)
+      end
+
+      it 'should start a task' do
+        task = double(:task)
+        allow(Eldritch::Task).to receive(:new).and_return(task)
+        expect(task).to receive(:start)
+
+        klass.async {}
+      end
+
+      it 'should set the task value' do
+        task = double(:task)
+        allow(Thread).to receive(:new).and_yield(task)
+        expect(task).to receive(:value=).with('something')
+        
+        klass.async { 'something' }
+      end
+    end
+
     context 'with 2+ arguments' do
       it 'should raise an error' do
         expect{klass.async(1,2)}.to raise_error(ArgumentError)

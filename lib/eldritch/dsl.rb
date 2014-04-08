@@ -15,7 +15,7 @@ module Eldritch
     private
 
     def async_block(&block)
-      task = Task.new &block
+      task = Task.new {|t| t.value = block.call }
       task.start
       task
     end
@@ -26,7 +26,7 @@ module Eldritch
 
       target.send :alias_method, new_method, method
       target.send :define_method, method do |*args|
-        async_block {|t| t.value = send(new_method, *args) }
+        async_block { send(new_method, *args) }
       end
     end
 
