@@ -18,11 +18,13 @@ describe Eldritch::DSL do
   end
 
   describe '#async(method)' do
-    it 'should create a __async method' do
+    before do
       klass.class_eval do
         async def foo; end
       end
+    end
 
+    it 'should create a __async method' do
       expect(klass.new).to respond_to(:__async_foo)
     end
 
@@ -38,9 +40,6 @@ describe Eldritch::DSL do
       it 'should call the original' do
         allow(Thread).to receive(:new).and_yield(double(:task).as_null_object)
 
-        klass.class_eval do
-          async def foo; end
-        end
         instance = klass.new
         expect(instance).to receive(:__async_foo)
 
@@ -75,9 +74,6 @@ describe Eldritch::DSL do
       it 'should return a task' do
         allow(Eldritch::DSL).to receive(:new).and_return(double(:task).as_null_object)
 
-        klass.class_eval do
-          async def foo; end
-        end
         instance = klass.new
 
         expect(instance.foo).to be_a(Eldritch::Task)
@@ -88,9 +84,6 @@ describe Eldritch::DSL do
         expect(task).to receive(:start).once
         allow(Eldritch::Task).to receive(:new).and_return(task)
 
-        klass.class_eval do
-          async def foo; end
-        end
         instance = klass.new
 
         instance.foo
