@@ -13,4 +13,4 @@ foo
 puts 'doing something else'
 
 # waiting for everybody to stop
-Thread.list.reject{|t| t == Thread.current}.each &:join
+(Thread.list - [Thread.current]).each &:join

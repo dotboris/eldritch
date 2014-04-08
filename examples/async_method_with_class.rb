@@ -17,4 +17,4 @@ obj.foo('stuff')
 puts 'doing something else'
 
 # waiting for everyone to stop
-Thread.list.reject{|t| t == Thread.current}.each &:join
+(Thread.list - [Thread.current]).each &:join
