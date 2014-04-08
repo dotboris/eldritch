@@ -35,16 +35,6 @@ describe Eldritch::DSL do
     end
 
     describe 'async method' do
-      it 'should start a new thread' do
-        expect(Thread).to receive(:new).once
-
-        klass.class_eval do
-          async def foo; end
-        end
-
-        klass.new.foo
-      end
-
       it 'should call the original' do
         allow(Thread).to receive(:new).and_yield(double(:task).as_null_object)
 
@@ -83,7 +73,7 @@ describe Eldritch::DSL do
       end
 
       it 'should return a task' do
-        allow(Thread).to receive(:new).and_yield(double(:task).as_null_object)
+        allow(Eldritch::DSL).to receive(:new).and_return(double(:task).as_null_object)
 
         klass.class_eval do
           async def foo; end
@@ -97,7 +87,6 @@ describe Eldritch::DSL do
         task = double(:task)
         expect(task).to receive(:start).once
         allow(Eldritch::Task).to receive(:new).and_return(task)
-        allow(Thread).to receive(:new).and_yield(double(:task).as_null_object)
 
         klass.class_eval do
           async def foo; end
