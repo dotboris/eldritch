@@ -22,6 +22,12 @@ describe Eldritch::Task do
         task.start
       end.to yield_control
     end
+
+    it 'should start a thread' do
+      expect(Thread).to receive(:new).with(task)
+
+      task.start
+    end
   end
 
   describe '#wait' do
