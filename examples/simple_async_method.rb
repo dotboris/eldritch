@@ -3,9 +3,9 @@ require 'eldritch'
 include Eldritch::DSL
 
 async def foo
-  puts 'started foo'
+  puts 'starting long running task'
   sleep(1)
-  puts 'finished foo'
+  puts 'long running task done'
 end
 
 puts 'calling foo'

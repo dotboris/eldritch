@@ -4,9 +4,9 @@ include Eldritch::DSL
 
 class BabysFirstClass
   async def foo(arg)
-    puts "Hey I got: #{arg}"
+    puts "starting long running task with #{stuff}"
     sleep(1)
-    puts 'foo done'
+    puts 'long running task done'
   end
 end
 
