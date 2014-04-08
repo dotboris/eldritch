@@ -4,7 +4,7 @@ module Eldritch
       if args.size == 0
         async_block(&block)
       else
-        async_method(args.first)
+        async_method(*args)
       end
     end
 
