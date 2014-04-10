@@ -56,6 +56,17 @@ describe Eldritch::DSL do
 
   describe '#async' do
     context 'with 0 arguments' do
+
+      it 'should add itself to the together block if together?' do
+        together = double('together')
+        allow(Thread.current).to receive(:together?).and_return(true)
+        allow(Thread.current).to receive(:together).and_return(together)
+
+        expect(together).to receive(:<<).with(kind_of(Eldritch::Task))
+
+        klass.async {}
+      end
+
       it 'should return a task' do
         expect(klass.async {}).to be_a(Eldritch::Task)
       end

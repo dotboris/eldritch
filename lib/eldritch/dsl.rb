@@ -24,6 +24,7 @@ module Eldritch
 
     def async_block(&block)
       task = Task.new {|t| t.value = block.call }
+      Thread.current.together << task if Thread.current.together?
       task.start
       task
     end
@@ -34,7 +35,7 @@ module Eldritch
 
       target.send :alias_method, new_method, method
       target.send :define_method, method do |*args|
-        async_block { send(new_method, *args) }
+        async { send(new_method, *args) }
       end
     end
 
