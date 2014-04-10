@@ -12,6 +12,14 @@ module Eldritch
       task.value
     end
 
+    def together
+      t = Together.new
+      Thread.current.together = t
+      yield
+      t.wait_all
+      Thread.current.together = nil
+    end
+
     private
 
     def async_block(&block)

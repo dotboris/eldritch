@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'eldritch/dsl'
 require 'eldritch/task'
+require 'eldritch/together'
 
 describe Eldritch::DSL do
   let(:klass) do Class.new do
@@ -14,6 +15,42 @@ describe Eldritch::DSL do
       task = double(:task)
       expect(task).to receive(:value)
       klass.sync(task)
+    end
+  end
+
+  describe '#together' do
+    it 'should create a new together' do
+      expect(Eldritch::Together).to receive(:new).and_return(double('together').as_null_object)
+
+      klass.together {}
+    end
+
+    it 'should set the current thread together' do
+      together = double('together').as_null_object
+      allow(Eldritch::Together).to receive(:new).and_return(together)
+      allow(Thread.current).to receive(:together=).with(nil)
+
+      expect(Thread.current).to receive(:together=).with(together)
+
+      klass.together {}
+    end
+
+    it 'should wait on all tasks' do
+      together = double('together').as_null_object
+      allow(Eldritch::Together).to receive(:new).and_return(together)
+
+      expect(together).to receive(:wait_all)
+
+      klass.together {}
+    end
+
+    it 'should leave current thread together nil' do
+      together = double('together').as_null_object
+      allow(Eldritch::Together).to receive(:new).and_return(together)
+
+      klass.together {}
+
+      expect(Thread.current.together).to be_nil
     end
   end
 
@@ -35,7 +72,7 @@ describe Eldritch::DSL do
         task = double(:task)
         allow(Thread).to receive(:new).and_yield(task)
         expect(task).to receive(:value=).with('something')
-        
+
         klass.async { 'something' }
       end
     end
