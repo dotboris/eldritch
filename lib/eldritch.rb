@@ -1,8 +1,3 @@
-require 'eldritch/version'
-require 'eldritch/task'
-require 'eldritch/dsl'
-require 'eldritch/ext_core/thread'
-require 'eldritch/together'
+require 'eldritch/safe'
 
-module Eldritch
-end
+Eldritch.inject_dsl Object
