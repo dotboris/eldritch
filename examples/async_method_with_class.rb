@@ -1,10 +1,9 @@
 #!/usr/bin/env ruby
 require 'eldritch'
-include Eldritch::DSL
 
 class BabysFirstClass
   async def foo(arg)
-    puts "starting long running task with #{stuff}"
+    puts "starting long running task with #{arg}"
     sleep(1)
     puts 'long running task done'
   end

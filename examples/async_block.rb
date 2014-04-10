@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 require 'eldritch'
-include Eldritch::DSL
 
 async do
   puts 'starting long running task'
