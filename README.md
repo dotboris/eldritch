@@ -26,3 +26,5 @@ Code quality
 [![Build Status](http://travis-ci.org/beraboris/eldritch.svg?branch=master)](http://travis-ci.org/beraboris/eldritch)
 
 [![Coverage Status](http://coveralls.io/repos/beraboris/eldritch/badge.png)](http://coveralls.io/r/beraboris/eldritch)
+
+[![Code Climate](http://codeclimate.com/github/beraboris/eldritch.png)](http://codeclimate.com/github/beraboris/eldritch)
