@@ -7,6 +7,15 @@ _The dark arts of concurrent programming._
 
 A ruby gem that adds parallel programming constructs to make your life a little easier.
 
+Code quality
+------------
+
+[![Build Status](http://travis-ci.org/beraboris/eldritch.svg?branch=master)](http://travis-ci.org/beraboris/eldritch)
+
+[![Coverage Status](http://coveralls.io/repos/beraboris/eldritch/badge.png)](http://coveralls.io/r/beraboris/eldritch)
+
+[![Code Climate](http://codeclimate.com/github/beraboris/eldritch.png)](http://codeclimate.com/github/beraboris/eldritch)
+
 Features
 --------
 
@@ -60,7 +69,7 @@ end
 res = 2 + task.value # waits for the task to finish
 ```
 
-### together
+### together blocks
 
 Together blocks are used to control all async blocks and methods within them as a group. Right now, the together block
 waits for all async calls be de done before exiting.
@@ -92,12 +101,3 @@ And then execute:
 Or install it yourself as:
 
     $ gem install eldritch
-
-Code quality
-------------
-
-[![Build Status](http://travis-ci.org/beraboris/eldritch.svg?branch=master)](http://travis-ci.org/beraboris/eldritch)
-
-[![Coverage Status](http://coveralls.io/repos/beraboris/eldritch/badge.png)](http://coveralls.io/r/beraboris/eldritch)
-
-[![Code Climate](http://codeclimate.com/github/beraboris/eldritch.png)](http://codeclimate.com/github/beraboris/eldritch)
