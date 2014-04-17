@@ -13,11 +13,15 @@ module Eldritch
     end
 
     def together
+      old = Thread.current.together
+
       t = Together.new
       Thread.current.together = t
+
       yield t
+
       t.wait_all
-      Thread.current.together = nil
+      Thread.current.together = old
     end
 
     private

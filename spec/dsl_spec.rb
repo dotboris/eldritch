@@ -28,7 +28,7 @@ describe Eldritch::DSL do
     it 'should set the current thread together' do
       together = double('together').as_null_object
       allow(Eldritch::Together).to receive(:new).and_return(together)
-      allow(Thread.current).to receive(:together=).with(nil)
+      allow(Thread.current).to receive(:together=).with(anything)
 
       expect(Thread.current).to receive(:together=).with(together)
 
@@ -44,13 +44,15 @@ describe Eldritch::DSL do
       klass.together {}
     end
 
-    it 'should leave current thread together nil' do
+    it 'should reset the previous together when it is done' do
       together = double('together').as_null_object
+      old_together = double('old together').as_null_object
       allow(Eldritch::Together).to receive(:new).and_return(together)
+      allow(Thread.current).to receive(:together).and_return(old_together)
 
       klass.together {}
 
-      expect(Thread.current.together).to be_nil
+      expect(Thread.current.together).to eql(old_together)
     end
 
     it 'should yield itself' do
