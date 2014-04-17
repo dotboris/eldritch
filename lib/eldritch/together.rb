@@ -5,6 +5,7 @@ module Eldritch
     def initialize
       @tasks = []
       @mutex = Mutex.new
+      @accept = true
     end
 
     def others
@@ -12,11 +13,15 @@ module Eldritch
     end
 
     def <<(task)
+      accept = nil
+
       @mutex.synchronize do
-        @tasks << task
+        # copy accept for the task.start condition
+        accept = @accept
+        @tasks << task if accept
       end
 
-      task.start
+      task.start if accept
     end
 
     def wait_all
@@ -27,12 +32,14 @@ module Eldritch
 
     def abort
       @mutex.synchronize do
+        @accept = false
         others.each &:abort
       end
     end
 
     def interrupt
       @mutex.synchronize do
+        @accept = false
         others.each &:interrupt
       end
     end

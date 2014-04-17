@@ -11,6 +11,36 @@ describe Eldritch::Together do
 
       together << task
     end
+
+    it 'should add the task to the list' do
+      task = double('task').as_null_object
+
+      together << task
+
+      expect(together.others).to include(task)
+    end
+
+    context 'after it is aborted or interrupted' do
+      before do
+        together.abort
+      end
+
+      it 'should not start the task' do
+        task = double('task')
+
+        expect(task).not_to receive(:start)
+
+        together << task
+      end
+
+      it 'should not add the task to the list' do
+        task = double('task')
+
+        together << task
+
+        expect(together.others).not_to include(task)
+      end
+    end
   end
 
   describe '#others' do
