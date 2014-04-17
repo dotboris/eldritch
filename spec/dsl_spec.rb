@@ -95,6 +95,12 @@ describe Eldritch::DSL do
 
         klass.async { 'something' }
       end
+
+      it 'should eat any interrupted errors' do
+        block = proc { raise Eldritch::InterruptedError }
+
+        expect{klass.async &block}.not_to raise_error
+      end
     end
 
     context 'with 1 argument' do

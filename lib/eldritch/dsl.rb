@@ -23,7 +23,12 @@ module Eldritch
     private
 
     def async_block(&block)
-      task = Task.new {|t| t.value = block.call }
+      task = Task.new do |t|
+        begin
+          t.value = block.call
+        rescue InterruptedError
+        end
+      end
       Thread.current.together << task
       task
     end
