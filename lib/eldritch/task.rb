@@ -20,5 +20,9 @@ module Eldritch
       wait
       @value
     end
+
+    def abort
+      @thread.kill
+    end
   end
 end

@@ -24,6 +24,12 @@ module Eldritch
         @tasks.each {|t| t.wait}
       end
     end
+
+    def abort
+      @mutex.synchronize do
+        others.each &:abort
+      end
+    end
   end
 
   class NilTogether

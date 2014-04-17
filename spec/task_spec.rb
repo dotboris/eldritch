@@ -3,17 +3,16 @@ require 'eldritch/task'
 
 describe Eldritch::Task do
   let(:task) { Eldritch::Task.new {} }
+  let(:thread) { double(:thread).as_null_object }
+  before do
+    allow(Thread).to receive(:new).and_yield.and_return(thread)
+  end
 
   it 'should not start a thread on init' do
     expect(task.thread).to be_nil
   end
 
   describe '#start' do
-    let(:thread) { double(:thread).as_null_object }
-    before do
-      allow(Thread).to receive(:new).and_yield.and_return(thread)
-    end
-
     it 'should create a thread' do
       task.start
 
@@ -61,6 +60,15 @@ describe Eldritch::Task do
       task.value = 42
       task.start
       expect(task.value).to eql(42)
+    end
+  end
+
+  describe '#abort' do
+    it 'should kill the thread' do
+      expect(thread).to receive(:kill)
+
+      task.start
+      task.abort
     end
   end
 end

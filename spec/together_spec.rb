@@ -47,6 +47,25 @@ describe Eldritch::Together do
       together.wait_all
     end
   end
+
+  describe '#abort' do
+    it 'should call abort on all tasks' do
+      task = double('task').as_null_object
+      expect(task).to receive(:abort)
+
+      together << task
+      together.abort
+    end
+
+    it 'should not call abort on current task' do
+      task = double('task').as_null_object
+      expect(task).not_to receive(:abort)
+      allow(Thread.current).to receive(:task).and_return(task)
+
+      together << task
+      together.abort
+    end
+  end
 end
 
 describe Eldritch::NilTogether do
