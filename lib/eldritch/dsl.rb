@@ -15,7 +15,7 @@ module Eldritch
     def together
       t = Together.new
       Thread.current.together = t
-      yield
+      yield t
       t.wait_all
       Thread.current.together = nil
     end

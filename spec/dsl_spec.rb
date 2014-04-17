@@ -52,6 +52,13 @@ describe Eldritch::DSL do
 
       expect(Thread.current.together).to be_nil
     end
+
+    it 'should yield itself' do
+      together = double('together').as_null_object
+      allow(Eldritch::Together).to receive(:new).and_return(together)
+
+      expect{ |b| klass.together &b }.to yield_with_args(together)
+    end
   end
 
   describe '#async' do
