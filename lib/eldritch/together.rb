@@ -24,6 +24,10 @@ module Eldritch
       task.start if accept
     end
 
+    def synchronize(&block)
+      @mutex.synchronize { block.call }
+    end
+
     def wait_all
       @mutex.synchronize do
         @tasks.each {|t| t.wait}

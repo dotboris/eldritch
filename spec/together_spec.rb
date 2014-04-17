@@ -78,6 +78,12 @@ describe Eldritch::Together do
     end
   end
 
+  describe '#synchronize' do
+    it 'should yield' do
+      expect{|b| together.synchronize &b}.to yield_control
+    end
+  end
+
   describe '#abort' do
     it 'should call abort on all tasks' do
       task = double('task').as_null_object
