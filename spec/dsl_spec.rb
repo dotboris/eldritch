@@ -55,33 +55,35 @@ describe Eldritch::DSL do
   end
 
   describe '#async' do
+    let(:task) { double('task').as_null_object }
+    let(:together) { double('together').as_null_object }
+
+    before do
+      call_me = nil
+      allow(Eldritch::Task).to receive(:new) do |&block|
+        call_me = block
+        task
+      end
+
+      allow(together).to receive(:<<) do
+        call_me.call(task)
+      end
+
+      allow(Thread.current).to receive(:together).and_return(together)
+    end
+
     context 'with 0 arguments' do
-
-      it 'should add itself to the together block if together?' do
-        together = double('together')
-        allow(Thread.current).to receive(:together?).and_return(true)
-        allow(Thread.current).to receive(:together).and_return(together)
-
-        expect(together).to receive(:<<).with(kind_of(Eldritch::Task))
+      it 'should add itself to the together' do
+        expect(together).to receive(:<<).with(task)
 
         klass.async {}
       end
 
       it 'should return a task' do
-        expect(klass.async {}).to be_a(Eldritch::Task)
-      end
-
-      it 'should start a task' do
-        task = double(:task)
-        allow(Eldritch::Task).to receive(:new).and_return(task)
-        expect(task).to receive(:start)
-
-        klass.async {}
+        expect(klass.async {}).to eql(task)
       end
 
       it 'should set the task value' do
-        task = double(:task)
-        allow(Thread).to receive(:new).and_yield(task)
         expect(task).to receive(:value=).with('something')
 
         klass.async { 'something' }
@@ -109,8 +111,6 @@ describe Eldritch::DSL do
 
       describe 'async method' do
         it 'should call the original' do
-          allow(Thread).to receive(:new).and_yield(double(:task).as_null_object)
-
           instance = klass.new
           expect(instance).to receive(:__async_foo)
 
@@ -118,8 +118,6 @@ describe Eldritch::DSL do
         end
 
         it 'should pass all arguments' do
-          allow(Thread).to receive(:new).and_yield(double(:task).as_null_object)
-
           klass.class_eval do
             async def foo(_,_,_); end
           end
@@ -130,9 +128,7 @@ describe Eldritch::DSL do
         end
 
         it 'should set the task value' do
-          task = double(:task)
           expect(task).to receive(:value=).with(42)
-          allow(Thread).to receive(:new).and_yield(task)
 
           klass.class_eval do
             async def foo; 42; end
@@ -147,17 +143,13 @@ describe Eldritch::DSL do
 
           instance = klass.new
 
-          expect(instance.foo).to be_a(Eldritch::Task)
+          expect(instance.foo).to eql(task)
         end
 
-        it 'should start the task' do
-          task = double(:task)
-          expect(task).to receive(:start).once
-          allow(Eldritch::Task).to receive(:new).and_return(task)
+        it 'should add itself to the together' do
+          expect(together).to receive(:<<).with(task)
 
-          instance = klass.new
-
-          instance.foo
+          klass.new.foo
         end
       end
     end

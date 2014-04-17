@@ -24,8 +24,7 @@ module Eldritch
 
     def async_block(&block)
       task = Task.new {|t| t.value = block.call }
-      Thread.current.together << task if Thread.current.together?
-      task.start
+      Thread.current.together << task
       task
     end
 

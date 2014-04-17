@@ -9,6 +9,11 @@ describe Eldritch::Task do
   end
 
   describe '#start' do
+    let(:thread) { double(:thread).as_null_object }
+    before do
+      allow(Thread).to receive(:new).and_yield.and_return(thread)
+    end
+
     it 'should create a thread' do
       task.start
 
@@ -16,7 +21,6 @@ describe Eldritch::Task do
     end
 
     it 'should call the block' do
-      allow(Thread).to receive(:new).and_yield
       expect do |b|
         task = Eldritch::Task.new &b
         task.start
@@ -25,6 +29,12 @@ describe Eldritch::Task do
 
     it 'should start a thread' do
       expect(Thread).to receive(:new).with(task)
+
+      task.start
+    end
+
+    it 'should set the thread task' do
+      expect(thread).to receive(:task=).with(task)
 
       task.start
     end

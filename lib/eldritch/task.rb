@@ -9,6 +9,7 @@ module Eldritch
 
     def start
       @thread = Thread.new self, &@block
+      @thread.task = self
     end
 
     def wait

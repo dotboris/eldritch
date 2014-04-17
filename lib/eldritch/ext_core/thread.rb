@@ -1,5 +1,10 @@
 class Thread
-  attr_accessor :together
+  attr_writer :together
+  attr_accessor :task
+
+  def together
+    @together ||= Eldritch::NilTogether.new
+  end
 
   def together?
     !together.nil?
