@@ -13,6 +13,29 @@ describe Eldritch::Together do
     end
   end
 
+  describe '#others' do
+    it 'should return an empty array when there is only one task' do
+      task = double('task').as_null_object
+      allow(Thread.current).to receive(:task).and_return(task)
+
+      together << task
+
+      expect(together.others).to be_kind_of(Array)
+      expect(together.others).to be_empty
+    end
+
+    it 'should return all the task except the current one' do
+      task = double('task').as_null_object
+      allow(Thread.current).to receive(:task).and_return(task)
+      other_task = double('other task').as_null_object
+
+      together << task
+      together << other_task
+
+      expect(together.others).to eql([other_task])
+    end
+  end
+
   describe '#wait_all' do
     it 'should call wait on all tasks' do
       task = double('task')
@@ -28,8 +51,6 @@ end
 
 describe Eldritch::NilTogether do
   let(:together) { Eldritch::NilTogether.new }
-
-  specify { expect(together).to respond_to(:wait_all) }
 
   describe '#<<' do
     it 'should call the task' do

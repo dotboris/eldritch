@@ -4,6 +4,10 @@ module Eldritch
       @tasks = []
     end
 
+    def others
+      @tasks - [Thread.current.task]
+    end
+
     def <<(task)
       @tasks << task
       task.start
@@ -17,9 +21,6 @@ module Eldritch
   class NilTogether
     def <<(task)
       task.start
-    end
-
-    def wait_all
     end
 
     def nil?
