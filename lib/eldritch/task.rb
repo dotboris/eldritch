@@ -24,5 +24,9 @@ module Eldritch
     def abort
       @thread.kill
     end
+
+    def interrupt
+      @thread.raise InterruptedError.new
+    end
   end
 end

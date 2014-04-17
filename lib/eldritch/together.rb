@@ -30,6 +30,12 @@ module Eldritch
         others.each &:abort
       end
     end
+
+    def interrupt
+      @mutex.synchronize do
+        others.each &:interrupt
+      end
+    end
   end
 
   class NilTogether

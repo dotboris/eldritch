@@ -71,4 +71,14 @@ describe Eldritch::Task do
       task.abort
     end
   end
+
+  describe '#interrupt' do
+    it 'should raise an interrupted error on the thread' do
+      expect(thread).to receive(:raise).with(kind_of(Eldritch::InterruptedError))
+
+      task.start
+
+      task.interrupt
+    end
+  end
 end

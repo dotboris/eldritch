@@ -66,6 +66,25 @@ describe Eldritch::Together do
       together.abort
     end
   end
+
+  describe '#interrupt' do
+    it 'should call interrupt on all tasks' do
+      task = double('task').as_null_object
+      expect(task).to receive(:interrupt)
+
+      together << task
+      together.interrupt
+    end
+
+    it 'should not call interrupt on current task' do
+      task = double('task').as_null_object
+      expect(task).not_to receive(:interrupt)
+      allow(Thread.current).to receive(:task).and_return(task)
+
+      together << task
+      together.interrupt
+    end
+  end
 end
 
 describe Eldritch::NilTogether do
