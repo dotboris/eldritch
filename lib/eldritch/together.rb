@@ -1,7 +1,10 @@
+require 'thread'
+
 module Eldritch
   class Together
     def initialize
       @tasks = []
+      @mutex = Mutex.new
     end
 
     def others
@@ -9,12 +12,17 @@ module Eldritch
     end
 
     def <<(task)
-      @tasks << task
+      @mutex.synchronize do
+        @tasks << task
+      end
+
       task.start
     end
 
     def wait_all
-      @tasks.each {|t| t.wait}
+      @mutex.synchronize do
+        @tasks.each {|t| t.wait}
+      end
     end
   end
 
