@@ -8,6 +8,10 @@ if ARGV.size < 2
   puts 'usage: password_cracker.rb <threads> <hash>'
   puts '  threads: the number of threads to run'
   puts '  hash: MD5 hash to crack'
+  puts
+  puts 'example:'
+  puts '  password_cracker.rb 4 31d7c3e829be03400641f80b821ef728'
+  puts '  prints "butts"'
   exit 1
 end
 
