@@ -2,27 +2,27 @@ require 'spec_helper'
 require 'eldritch/group'
 
 describe Eldritch::Group do
-  let(:together) { Eldritch::Group.new }
+  let(:group) { Eldritch::Group.new }
 
   describe '#<<' do
     it 'should start the task' do
       task = double('task')
       expect(task).to receive(:start)
 
-      together << task
+      group << task
     end
 
     it 'should add the task to the list' do
       task = double('task').as_null_object
 
-      together << task
+      group << task
 
-      expect(together.others).to include(task)
+      expect(group.others).to include(task)
     end
 
     context 'after it is aborted or interrupted' do
       before do
-        together.abort
+        group.abort
       end
 
       it 'should not start the task' do
@@ -30,15 +30,15 @@ describe Eldritch::Group do
 
         expect(task).not_to receive(:start)
 
-        together << task
+        group << task
       end
 
       it 'should not add the task to the list' do
         task = double('task')
 
-        together << task
+        group << task
 
-        expect(together.others).not_to include(task)
+        expect(group.others).not_to include(task)
       end
     end
   end
@@ -48,10 +48,10 @@ describe Eldritch::Group do
       task = double('task').as_null_object
       allow(Thread.current).to receive(:task).and_return(task)
 
-      together << task
+      group << task
 
-      expect(together.others).to be_kind_of(Array)
-      expect(together.others).to be_empty
+      expect(group.others).to be_kind_of(Array)
+      expect(group.others).to be_empty
     end
 
     it 'should return all the task except the current one' do
@@ -59,10 +59,10 @@ describe Eldritch::Group do
       allow(Thread.current).to receive(:task).and_return(task)
       other_task = double('other task').as_null_object
 
-      together << task
-      together << other_task
+      group << task
+      group << other_task
 
-      expect(together.others).to eql([other_task])
+      expect(group.others).to eql([other_task])
     end
   end
 
@@ -70,17 +70,17 @@ describe Eldritch::Group do
     it 'should call wait on all tasks' do
       task = double('task')
       allow(task).to receive(:start)
-      together << task
+      group << task
 
       expect(task).to receive(:wait)
 
-      together.wait_all
+      group.wait_all
     end
   end
 
   describe '#synchronize' do
     it 'should yield' do
-      expect{|b| together.synchronize &b}.to yield_control
+      expect{|b| group.synchronize &b}.to yield_control
     end
   end
 
@@ -89,8 +89,8 @@ describe Eldritch::Group do
       task = double('task').as_null_object
       expect(task).to receive(:abort)
 
-      together << task
-      together.abort
+      group << task
+      group.abort
     end
 
     it 'should not call abort on current task' do
@@ -98,8 +98,8 @@ describe Eldritch::Group do
       expect(task).not_to receive(:abort)
       allow(Thread.current).to receive(:task).and_return(task)
 
-      together << task
-      together.abort
+      group << task
+      group.abort
     end
   end
 
@@ -108,8 +108,8 @@ describe Eldritch::Group do
       task = double('task').as_null_object
       expect(task).to receive(:interrupt)
 
-      together << task
-      together.interrupt
+      group << task
+      group.interrupt
     end
 
     it 'should not call interrupt on current task' do
@@ -117,27 +117,27 @@ describe Eldritch::Group do
       expect(task).not_to receive(:interrupt)
       allow(Thread.current).to receive(:task).and_return(task)
 
-      together << task
-      together.interrupt
+      group << task
+      group.interrupt
     end
   end
 end
 
 describe Eldritch::NilGroup do
-  let(:together) { Eldritch::NilGroup.new }
+  let(:group) { Eldritch::NilGroup.new }
 
   describe '#<<' do
     it 'should call the task' do
       task = double('task')
       expect(task).to receive(:start)
 
-      together << task
+      group << task
     end
   end
 
   describe '#nil?' do
     it 'should be true' do
-      expect(together.nil?).to be_true
+      expect(group.nil?).to be_true
     end
   end
 end
