@@ -1,15 +1,15 @@
 module Eldritch
   module Refinements
     refine Thread do
-      attr_writer :together
+      attr_writer :group
       attr_accessor :task
 
-      def together
-        @together ||= Eldritch::NilTogether.new
+      def group
+        @group ||= Eldritch::NilTogether.new
       end
 
-      def together?
-        !together.nil?
+      def in_group?
+        !group.nil?
       end
     end
   end

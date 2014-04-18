@@ -28,9 +28,9 @@ describe Eldritch::DSL do
     it 'should set the current thread together' do
       together = double('together').as_null_object
       allow(Eldritch::Group).to receive(:new).and_return(together)
-      allow(Thread.current).to receive(:together=).with(anything)
+      allow(Thread.current).to receive(:group=).with(anything)
 
-      expect(Thread.current).to receive(:together=).with(together)
+      expect(Thread.current).to receive(:group=).with(together)
 
       klass.together {}
     end
@@ -48,11 +48,11 @@ describe Eldritch::DSL do
       together = double('together').as_null_object
       old_together = double('old together').as_null_object
       allow(Eldritch::Group).to receive(:new).and_return(together)
-      allow(Thread.current).to receive(:together).and_return(old_together)
+      allow(Thread.current).to receive(:group).and_return(old_together)
 
       klass.together {}
 
-      expect(Thread.current.together).to eql(old_together)
+      expect(Thread.current.group).to eql(old_together)
     end
 
     it 'should yield itself' do
@@ -78,7 +78,7 @@ describe Eldritch::DSL do
         call_me.call(task)
       end
 
-      allow(Thread.current).to receive(:together).and_return(together)
+      allow(Thread.current).to receive(:group).and_return(together)
     end
 
     context 'with 0 arguments' do

@@ -8,8 +8,8 @@ describe Thread do
 
   it 'should have together accessor' do
     # refinements don't work with #respond_to? and send, we have to check for errors
-    expect{thread.together}.not_to raise_error
-    expect{thread.together = nil}.not_to raise_error
+    expect{thread.group}.not_to raise_error
+    expect{thread.group = nil}.not_to raise_error
   end
 
   it 'should have a task accessor' do
@@ -21,29 +21,29 @@ describe Thread do
   describe '#together' do
     it 'should return the togther previously set' do
       together = double('together')
-      thread.together = together
-      expect(thread.together).to eql(together)
+      thread.group = together
+      expect(thread.group).to eql(together)
     end
 
     it 'should return a NilTogether when none are set' do
-      expect(thread.together).to be_a Eldritch::NilTogether
+      expect(thread.group).to be_a Eldritch::NilTogether
     end
   end
 
   describe '#together?' do
     it 'should be false when together is nil' do
-      thread.together = nil
-      expect(thread.together?).to be_false
+      thread.group = nil
+      expect(thread.in_group?).to be_false
     end
 
     it 'should be false when together is a NilTogether' do
-      thread.together = Eldritch::NilTogether.new
-      expect(thread.together?).to be_false
+      thread.group = Eldritch::NilTogether.new
+      expect(thread.in_group?).to be_false
     end
 
     it 'should be true when together is set' do
-      thread.together = 2
-      expect(thread.together?).to be_true
+      thread.group = 2
+      expect(thread.in_group?).to be_true
     end
   end
 end

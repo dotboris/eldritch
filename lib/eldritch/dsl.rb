@@ -15,15 +15,15 @@ module Eldritch
     end
 
     def together
-      old = Thread.current.together
+      old = Thread.current.group
 
       t = Group.new
-      Thread.current.together = t
+      Thread.current.group = t
 
       yield t
 
       t.wait_all
-      Thread.current.together = old
+      Thread.current.group = old
     end
 
     private
@@ -35,7 +35,7 @@ module Eldritch
         rescue InterruptedError
         end
       end
-      Thread.current.together << task
+      Thread.current.group << task
       task
     end
 
