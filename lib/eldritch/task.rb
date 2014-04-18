@@ -1,5 +1,7 @@
 module Eldritch
   class Task
+    using Eldritch::Refinements
+
     attr_writer :value
     attr_reader :thread
 
