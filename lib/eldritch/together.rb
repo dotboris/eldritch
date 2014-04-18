@@ -2,6 +2,8 @@ require 'thread'
 
 module Eldritch
   class Together
+    using Eldritch::Refinements
+
     def initialize
       @tasks = []
       @mutex = Mutex.new

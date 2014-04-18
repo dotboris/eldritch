@@ -1,5 +1,7 @@
 module Eldritch
   module DSL
+    using Eldritch::Refinements
+
     def async(method=nil, &block)
       if block
         async_block(&block)

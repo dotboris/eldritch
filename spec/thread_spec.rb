@@ -1,17 +1,21 @@
 require 'spec_helper'
-require 'eldritch/ext_core/thread'
+require 'eldritch/refinements/thread'
+
+using Eldritch::Refinements
 
 describe Thread do
   let(:thread) { Thread.new {} }
 
   it 'should have together accessor' do
-    expect(thread).to respond_to(:together)
-    expect(thread).to respond_to(:together=)
+    # refinements don't work with #respond_to? and send, we have to check for errors
+    expect{thread.together}.not_to raise_error
+    expect{thread.together = nil}.not_to raise_error
   end
 
   it 'should have a task accessor' do
-    expect(thread).to respond_to(:task)
-    expect(thread).to respond_to(:task=)
+    # refinements don't work with #respond_to? and send, we have to check for errors
+    expect{thread.task}.not_to raise_error
+    expect{thread.task = nil}.not_to raise_error
   end
 
   describe '#together' do
