@@ -1,7 +1,7 @@
 require 'thread'
 
 module Eldritch
-  class Together
+  class Group
     using Eldritch::Refinements
 
     def initialize

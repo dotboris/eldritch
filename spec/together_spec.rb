@@ -1,8 +1,8 @@
 require 'spec_helper'
-require 'eldritch/together'
+require 'eldritch/group'
 
-describe Eldritch::Together do
-  let(:together) { Eldritch::Together.new }
+describe Eldritch::Group do
+  let(:together) { Eldritch::Group.new }
 
   describe '#<<' do
     it 'should start the task' do

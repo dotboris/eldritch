@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'eldritch/dsl'
 require 'eldritch/task'
-require 'eldritch/together'
+require 'eldritch/group'
 
 describe Eldritch::DSL do
   let(:klass) do Class.new do
@@ -20,14 +20,14 @@ describe Eldritch::DSL do
 
   describe '#together' do
     it 'should create a new together' do
-      expect(Eldritch::Together).to receive(:new).and_return(double('together').as_null_object)
+      expect(Eldritch::Group).to receive(:new).and_return(double('together').as_null_object)
 
       klass.together {}
     end
 
     it 'should set the current thread together' do
       together = double('together').as_null_object
-      allow(Eldritch::Together).to receive(:new).and_return(together)
+      allow(Eldritch::Group).to receive(:new).and_return(together)
       allow(Thread.current).to receive(:together=).with(anything)
 
       expect(Thread.current).to receive(:together=).with(together)
@@ -37,7 +37,7 @@ describe Eldritch::DSL do
 
     it 'should wait on all tasks' do
       together = double('together').as_null_object
-      allow(Eldritch::Together).to receive(:new).and_return(together)
+      allow(Eldritch::Group).to receive(:new).and_return(together)
 
       expect(together).to receive(:wait_all)
 
@@ -47,7 +47,7 @@ describe Eldritch::DSL do
     it 'should reset the previous together when it is done' do
       together = double('together').as_null_object
       old_together = double('old together').as_null_object
-      allow(Eldritch::Together).to receive(:new).and_return(together)
+      allow(Eldritch::Group).to receive(:new).and_return(together)
       allow(Thread.current).to receive(:together).and_return(old_together)
 
       klass.together {}
@@ -57,7 +57,7 @@ describe Eldritch::DSL do
 
     it 'should yield itself' do
       together = double('together').as_null_object
-      allow(Eldritch::Together).to receive(:new).and_return(together)
+      allow(Eldritch::Group).to receive(:new).and_return(together)
 
       expect{ |b| klass.together &b }.to yield_with_args(together)
     end

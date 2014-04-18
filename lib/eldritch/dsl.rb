@@ -17,7 +17,7 @@ module Eldritch
     def together
       old = Thread.current.together
 
-      t = Together.new
+      t = Group.new
       Thread.current.together = t
 
       yield t
