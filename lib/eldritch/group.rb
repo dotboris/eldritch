@@ -31,9 +31,7 @@ module Eldritch
     end
 
     def wait_all
-      @mutex.synchronize do
-        @tasks.each {|t| t.wait}
-      end
+      @tasks.each {|t| t.wait}
     end
 
     def abort
