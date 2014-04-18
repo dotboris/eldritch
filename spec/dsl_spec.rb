@@ -19,53 +19,53 @@ describe Eldritch::DSL do
   end
 
   describe '#together' do
-    it 'should create a new together' do
-      expect(Eldritch::Group).to receive(:new).and_return(double('together').as_null_object)
+    it 'should create a new group' do
+      expect(Eldritch::Group).to receive(:new).and_return(double('group').as_null_object)
 
       klass.together {}
     end
 
-    it 'should set the current thread together' do
-      together = double('together').as_null_object
-      allow(Eldritch::Group).to receive(:new).and_return(together)
+    it 'should set the current thread group' do
+      group = double('group').as_null_object
+      allow(Eldritch::Group).to receive(:new).and_return(group)
       allow(Thread.current).to receive(:group=).with(anything)
 
-      expect(Thread.current).to receive(:group=).with(together)
+      expect(Thread.current).to receive(:group=).with(group)
 
       klass.together {}
     end
 
     it 'should wait on all tasks' do
-      together = double('together').as_null_object
-      allow(Eldritch::Group).to receive(:new).and_return(together)
+      group = double('group').as_null_object
+      allow(Eldritch::Group).to receive(:new).and_return(group)
 
-      expect(together).to receive(:wait_all)
+      expect(group).to receive(:wait_all)
 
       klass.together {}
     end
 
-    it 'should reset the previous together when it is done' do
-      together = double('together').as_null_object
-      old_together = double('old together').as_null_object
-      allow(Eldritch::Group).to receive(:new).and_return(together)
-      allow(Thread.current).to receive(:group).and_return(old_together)
+    it 'should reset the previous group when it is done' do
+      group = double('group').as_null_object
+      old_group = double('old group').as_null_object
+      allow(Eldritch::Group).to receive(:new).and_return(group)
+      allow(Thread.current).to receive(:group).and_return(old_group)
 
       klass.together {}
 
-      expect(Thread.current.group).to eql(old_together)
+      expect(Thread.current.group).to eql(old_group)
     end
 
-    it 'should yield itself' do
-      together = double('together').as_null_object
-      allow(Eldritch::Group).to receive(:new).and_return(together)
+    it 'should yield it the new group' do
+      group = double('group').as_null_object
+      allow(Eldritch::Group).to receive(:new).and_return(group)
 
-      expect{ |b| klass.together &b }.to yield_with_args(together)
+      expect{ |b| klass.together &b }.to yield_with_args(group)
     end
   end
 
   describe '#async' do
     let(:task) { double('task').as_null_object }
-    let(:together) { double('together').as_null_object }
+    let(:group) { double('group').as_null_object }
 
     before do
       call_me = nil
@@ -74,16 +74,16 @@ describe Eldritch::DSL do
         task
       end
 
-      allow(together).to receive(:<<) do
+      allow(group).to receive(:<<) do
         call_me.call(task)
       end
 
-      allow(Thread.current).to receive(:group).and_return(together)
+      allow(Thread.current).to receive(:group).and_return(group)
     end
 
     context 'with 0 arguments' do
-      it 'should add itself to the together' do
-        expect(together).to receive(:<<).with(task)
+      it 'should add itself to the group' do
+        expect(group).to receive(:<<).with(task)
 
         klass.async {}
       end
@@ -151,20 +151,6 @@ describe Eldritch::DSL do
           instance = klass.new
 
           instance.foo
-        end
-
-        it 'should return a task' do
-          allow(Eldritch::DSL).to receive(:new).and_return(double(:task).as_null_object)
-
-          instance = klass.new
-
-          expect(instance.foo).to eql(task)
-        end
-
-        it 'should add itself to the together' do
-          expect(together).to receive(:<<).with(task)
-
-          klass.new.foo
         end
       end
     end
