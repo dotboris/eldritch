@@ -51,7 +51,7 @@ module Eldritch
     end
   end
 
-  class NilTogether
+  class NilGroup
     def <<(task)
       task.start
     end

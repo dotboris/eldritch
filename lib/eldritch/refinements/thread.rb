@@ -5,7 +5,7 @@ module Eldritch
       attr_accessor :task
 
       def group
-        @group ||= Eldritch::NilTogether.new
+        @group ||= Eldritch::NilGroup.new
       end
 
       def in_group?

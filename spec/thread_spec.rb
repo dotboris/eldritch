@@ -26,7 +26,7 @@ describe Thread do
     end
 
     it 'should return a NilTogether when none are set' do
-      expect(thread.group).to be_a Eldritch::NilTogether
+      expect(thread.group).to be_a Eldritch::NilGroup
     end
   end
 
@@ -37,7 +37,7 @@ describe Thread do
     end
 
     it 'should be false when together is a NilTogether' do
-      thread.group = Eldritch::NilTogether.new
+      thread.group = Eldritch::NilGroup.new
       expect(thread.in_group?).to be_false
     end
 

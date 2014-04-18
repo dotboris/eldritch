@@ -123,8 +123,8 @@ describe Eldritch::Group do
   end
 end
 
-describe Eldritch::NilTogether do
-  let(:together) { Eldritch::NilTogether.new }
+describe Eldritch::NilGroup do
+  let(:together) { Eldritch::NilGroup.new }
 
   describe '#<<' do
     it 'should call the task' do
