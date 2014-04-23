@@ -3,9 +3,7 @@ Eldritch
 
 _The dark arts of concurrent programming._
 
-**This gem is in development and in no way shape or form production ready.**
-
-A ruby gem that adds parallel programming constructs to make your life a little easier.
+A DSL that adds parallel programming constructs to make your life a little easier.
 
 Code quality
 ------------
@@ -69,20 +67,36 @@ res = 2 + task.value # waits for the task to finish
 
 ### together blocks
 
-Together blocks are used to control all async blocks and methods within them as a group. Right now, the together block
-waits for all async calls be de done before exiting.
+Together blocks are used to control all async blocks and methods within them as a group. Before exiting, together blocks
+wait for all their async calls to be done before returning.
 
 ```ruby
 require 'eldritch'
 
 together do
-  1000.each do
+  1000.times do
     async do
       # do some work
     end
   end
 end
 # all 1000 tasks are done
+```
+
+These blocks can also take an argument. This argument is a group that can be used to control the async calls in the
+block. See the documentation for Eldritch::Group for more information.
+
+```ruby
+require 'eldritch'
+
+together do |group|
+  5.times do
+    async do
+      # do something
+      group.interrupt if some_condition  # stops all other tasks
+    end
+  end
+end
 ```
 
 Installation
