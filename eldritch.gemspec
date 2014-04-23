@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = Eldritch::VERSION
   spec.authors       = ['Boris Bera', 'François Genois']
   spec.email         = %w(bboris@rsoft.ca frankgenerated@gmail.com)
-  spec.summary       = %q{Adds tools to make parallelism easier.}
+  spec.summary       = %q{DSL that adds concurrent programming concepts to make your life easier.}
   spec.description   = %q{Adds support for async methods and async blocks. Adds a together block that allows async methods/blocks to be controlled as a group.}
   spec.homepage      = 'https://github.com/beraboris/eldritch'
   spec.license       = 'MIT'
