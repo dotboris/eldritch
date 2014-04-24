@@ -4,7 +4,7 @@ require 'eldritch'
 def merge_sort(array_a, array_b)
   merged_array = []
 
-  while not array_b.empty? and not array_a.empty? do
+  until array_b.empty? || array_a.empty? do
     if array_a.first <= array_b.first
       merged_array.concat(array_a.take_while { |i| (i <= array_b.first) })
       array_a = array_a.drop_while { |i| i <= array_b.first }
