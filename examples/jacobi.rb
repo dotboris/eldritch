@@ -29,7 +29,7 @@ puts
 height = matrix.length - 2
 width = matrix[0].length - 2
 
-iterations = 1
+iteration = 1
 begin
   matrix_temp = create_matrix(height, width)
 
@@ -44,15 +44,15 @@ begin
     end
   end
 
-  max_diff = (1..height).to_a
+  diff = (1..height).to_a
     .product((1..width).to_a)
     .map {|i, j| (matrix_temp[i][j] - matrix[i][j]).abs}
     .max
   matrix = matrix_temp
 
   print_matrix matrix
-  puts "iteration = #{iterations}; diff = #{max_diff}"
+  puts "iteration = #{iteration}; diff = #{diff}"
   puts
 
-  iterations+=1
-end while max_diff > epsilon
+  iteration+=1
+end while diff > epsilon
