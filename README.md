@@ -99,6 +99,14 @@ together do |group|
 end
 ```
 
+Running examples
+----------------
+
+If you installed eldritch with gem, you can just run the examples directly. If you are running them against a clone of
+this repository you need to add `lib/` to the include path.
+
+    $ ruby -Ilib examples/the_example.rb
+
 Installation
 ------------
 
