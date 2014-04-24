@@ -27,26 +27,26 @@ print_matrix matrix
 puts
 
 height = matrix.length - 2
-width = matrix[0].length - 2
+width = matrix.first.length - 2
 
 iteration = 1
 begin
-  matrix_temp = create_matrix(height, width)
+  next_matrix = create_matrix(height, width)
 
   together do
     (1..height).each do |r|
       async do
         (1..width).each do |c|
           neighbors = [c-1, c+1].product([r-1, r+1]).map{|i, j| matrix[i][j]}
-          matrix_temp[r][c] = neighbors.reduce(:+) / 4.0
+          next_matrix[r][c] = neighbors.reduce(:+) / 4.0
         end
       end
     end
   end
 
-  diff = matrix.flatten.zip(matrix_temp.flatten).map{|i, j| (i - j).abs}.max
+  diff = matrix.flatten.zip(next_matrix.flatten).map{|i, j| (i - j).abs}.max
 
-  matrix = matrix_temp
+  matrix = next_matrix
 
   print_matrix matrix
   puts "iteration = #{iteration}; diff = #{diff}"
