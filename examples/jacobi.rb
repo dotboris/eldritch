@@ -25,9 +25,8 @@ puts
 height = matrix.length - 2
 width = matrix[0].length - 2
 
-max_diff = epsilon + 1
 iterations = 1
-while max_diff > epsilon do
+begin
   matrix_temp = Marshal.load(Marshal.dump(matrix))
 
   together do
@@ -52,4 +51,4 @@ while max_diff > epsilon do
   puts
 
   iterations+=1
-end
+end while max_diff > epsilon
