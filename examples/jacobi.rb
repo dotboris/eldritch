@@ -54,5 +54,5 @@ begin
   puts "iteration = #{iteration}; diff = #{diff}"
   puts
 
-  iteration+=1
+  iteration += 1
 end while diff > epsilon
