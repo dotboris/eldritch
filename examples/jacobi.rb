@@ -34,11 +34,11 @@ begin
   matrix_temp = create_matrix(height, width)
 
   together do
-    (1..height).each do |row_id|
+    (1..height).each do |r|
       async do
-        (1..width).each do |col_id|
-          neighbors = [col_id - 1, col_id + 1].product([row_id - 1, row_id + 1]).map{|i, j| matrix[i][j]}
-          matrix_temp[row_id][col_id] = neighbors.reduce(:+) / 4.0
+        (1..width).each do |c|
+          neighbors = [c-1, c+1].product([r-1, r+1]).map{|i, j| matrix[i][j]}
+          matrix_temp[r][c] = neighbors.reduce(:+) / 4.0
         end
       end
     end
