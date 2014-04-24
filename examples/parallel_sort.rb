@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'eldritch'
 
 def merge_sort(array_a, array_b)
