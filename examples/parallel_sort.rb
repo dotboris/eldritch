@@ -6,15 +6,14 @@ def merge_sort(array_a, array_b)
 
   until array_b.empty? || array_a.empty? do
     if array_a.first <= array_b.first
-      merged_array.concat(array_a.take_while { |i| (i <= array_b.first) })
+      merged_array += array_a.take_while { |i| (i <= array_b.first) }
       array_a = array_a.drop_while { |i| i <= array_b.first }
     else
-      merged_array.concat(array_b.take_while { |i| i <= array_a.first })
+      merged_array += array_b.take_while { |i| i <= array_a.first }
       array_b = array_b.drop_while { |i| i <= array_a.first }
     end
   end
-  merged_array.concat(((array_a.empty?) ? array_b : array_a))
-  merged_array
+  merged_array + (array_a.empty? ? array_b : array_a)
 end
 
 $threshold = 100
@@ -43,7 +42,7 @@ def not_parallel_sort(array_to_sort)
   merge_sort(second_part, first_part)
 end
 
-nums = 1000000.times.map { rand(1..100000) }
+nums = 100000.times.map { rand(1..100000) }
 
 start = Time.now
 parallel_sort(nums)
