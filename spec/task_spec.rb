@@ -46,6 +46,13 @@ describe Eldritch::Task do
       expect(task.thread).to receive(:join)
       task.wait
     end
+
+    it 'should set the thread task to nil' do
+      task.start
+
+      expect(thread).to receive(:task=).with(nil)
+      task.wait
+    end
   end
 
   describe '#value' do
@@ -53,6 +60,13 @@ describe Eldritch::Task do
       task.start
 
       expect(task.thread).to receive(:join)
+      task.value
+    end
+
+    it 'should set the thread task to nil' do
+      task.start
+
+      expect(thread).to receive(:task=).with(nil)
       task.value
     end
 

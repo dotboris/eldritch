@@ -33,6 +33,7 @@ module Eldritch
     # Waits for the task to complete
     def wait
       @thread.join
+      @thread.task = nil
     end
 
     # The return value of the task
