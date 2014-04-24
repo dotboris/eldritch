@@ -1,45 +1,45 @@
 #!/usr/bin/env ruby
 require 'eldritch'
 
-def merge_sort(array_a, array_b)
-  merged_array = []
+def merge_sort(a, b)
+  merged = []
 
-  until array_b.empty? || array_a.empty? do
-    if array_a.first <= array_b.first
-      merged_array += array_a.take_while { |i| (i <= array_b.first) }
-      array_a = array_a.drop_while { |i| i <= array_b.first }
+  until b.empty? || a.empty? do
+    if a.first <= b.first
+      merged += a.take_while { |i| (i <= b.first) }
+      a = a.drop_while { |i| i <= b.first }
     else
-      merged_array += array_b.take_while { |i| i <= array_a.first }
-      array_b = array_b.drop_while { |i| i <= array_a.first }
+      merged += b.take_while { |i| i <= a.first }
+      b = b.drop_while { |i| i <= a.first }
     end
   end
-  merged_array + (array_a.empty? ? array_b : array_a)
+  merged + (a.empty? ? b : a)
 end
 
 $threshold = 100
 
-def parallel_sort(array_to_sort)
-  if array_to_sort.length < $threshold
-    return array_to_sort.sort
+def parallel_sort(array)
+  if array.length < $threshold
+    return array.sort
   end
-  mid_index = (array_to_sort.length / 2).floor
+  mid = (array.length / 2).floor
 
-  first_part_task = async { parallel_sort(array_to_sort.slice(0, mid_index)) }
-  second_part = parallel_sort(array_to_sort.slice(mid_index, array_to_sort.length - mid_index))
+  first = async { parallel_sort(array.slice(0, mid)) }
+  second = parallel_sort(array.slice(mid, array.length - mid))
 
-  merge_sort(second_part, first_part_task.value)
+  merge_sort(second, first.value)
 end
 
-def not_parallel_sort(array_to_sort)
-  if array_to_sort.length < $threshold
-    return array_to_sort.sort
+def not_parallel_sort(array)
+  if array.length < $threshold
+    return array.sort
   end
-  mid_index = (array_to_sort.length / 2).floor
+  mid = (array.length / 2).floor
 
-  first_part = not_parallel_sort(array_to_sort.slice(0, mid_index))
-  second_part = not_parallel_sort(array_to_sort.slice(mid_index, array_to_sort.length - mid_index))
+  first = not_parallel_sort(array.slice(0, mid))
+  second = not_parallel_sort(array.slice(mid, array.length - mid))
 
-  merge_sort(second_part, first_part)
+  merge_sort(second, first)
 end
 
 nums = 100000.times.map { rand(1..100000) }
