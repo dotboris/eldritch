@@ -44,10 +44,8 @@ begin
     end
   end
 
-  diff = (1..height).to_a
-    .product((1..width).to_a)
-    .map {|i, j| (matrix_temp[i][j] - matrix[i][j]).abs}
-    .max
+  diff = matrix.flatten.zip(matrix_temp.flatten).map{|i, j| (i - j).abs}.max
+
   matrix = matrix_temp
 
   print_matrix matrix
