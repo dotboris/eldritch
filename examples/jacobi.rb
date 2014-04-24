@@ -18,9 +18,9 @@ def jacobi(matrix)
   matrix_height = matrix.length - 2
   matrix_width = matrix[0].length - 2
 
-  maxDiff = $epsilon + 1
+  max_diff = $epsilon + 1
   iterations = 1
-  while maxDiff > $epsilon do
+  while max_diff > $epsilon do
     matrix_temp = Marshal.load( Marshal.dump(matrix) )
 
     together do |group|
@@ -35,7 +35,7 @@ def jacobi(matrix)
       end
     end
 
-    maxDiff = (1..matrix_height).to_a
+    max_diff = (1..matrix_height).to_a
                                 .product((1..matrix_width).to_a)
                                 .map{ |i| (matrix_temp[i[0]][i[1]] - matrix[i[0]][i[1]]).abs }
                                 .max
@@ -45,7 +45,7 @@ def jacobi(matrix)
     pp matrix
     puts iterations
     iterations+=1
-    pp maxDiff
+    pp max_diff
     puts ''
   end
 end
