@@ -48,10 +48,8 @@ while max_diff > epsilon do
     .max
   matrix = matrix_temp
 
-  puts 'Iteration '
   print_matrix matrix
-  puts iterations
+  puts "iteration = #{iterations}; diff = #{max_diff}"
+  puts
   iterations+=1
-  puts max_diff
-  puts ''
 end
