@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'eldritch'
 
-def merge_sort(a, b)
+def merge(a, b)
   merged = []
 
   until b.empty? || a.empty? do
@@ -24,7 +24,7 @@ def parallel_sort(array)
   first = async { parallel_sort(array.slice(0, mid)) }
   second = parallel_sort(array.slice(mid, array.length - mid))
 
-  merge_sort(second, first.value)
+  merge(second, first.value)
 end
 
 def not_parallel_sort(array)
@@ -35,7 +35,7 @@ def not_parallel_sort(array)
   first = not_parallel_sort(array.slice(0, mid))
   second = not_parallel_sort(array.slice(mid, array.length - mid))
 
-  merge_sort(second, first)
+  merge(second, first)
 end
 
 nums = 100000.times.map { rand(1..100000) }
