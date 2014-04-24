@@ -8,6 +8,10 @@ def print_matrix(matrix)
   end
 end
 
+def create_matrix(n, m)
+  Array.new(n+2).map{[-1] * (m+2)}
+end
+
 matrix = [
   [-1, -1, -1, -1, -1, -1],
   [-1,  1,  2,  3,  4, -1],
@@ -27,7 +31,7 @@ width = matrix[0].length - 2
 
 iterations = 1
 begin
-  matrix_temp = Marshal.load(Marshal.dump(matrix))
+  matrix_temp = create_matrix(height, width)
 
   together do
     (1..height).each do |row_id|
@@ -42,7 +46,7 @@ begin
 
   max_diff = (1..height).to_a
     .product((1..width).to_a)
-    .map { |i| (matrix_temp[i[0]][i[1]] - matrix[i[0]][i[1]]).abs }
+    .map {|i, j| (matrix_temp[i][j] - matrix[i][j]).abs}
     .max
   matrix = matrix_temp
 
