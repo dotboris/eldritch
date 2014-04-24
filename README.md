@@ -99,6 +99,20 @@ together do |group|
 end
 ```
 
+A note on GIL
+-------------
+
+MRI has this nasty little feature called a _GIL_ or _Global Interpreter Lock_. This lock makes it so that only one
+thread can run at a time. Let's say that you have 4 cores, running threaded code on MRI will only make use of 1 core.
+Sometimes, you might not gain a speed boost if you make code parallel. This could the case even if theory says otherwise.
+
+Not all ruby implementations use a _GIL_. For example, jRuby does not use a _GIL_. The problem with using jRuby, is that
+this gem requires ruby >= 2.1.0 and jRuby only supports up to 1.9.3 (as of writing this).
+
+You will probably see a speed boost if your code does a lot of IO or anything that's blocking. In that case running on a
+single core is not that much of a hindrance, because most of the threads will be blocked and your code should run more
+often.
+
 Running examples
 ----------------
 
