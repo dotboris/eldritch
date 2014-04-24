@@ -34,9 +34,8 @@ while max_diff > epsilon do
     (1..matrix_height).each do |row_id|
       async do
         (1..matrix_width).each do |col_id|
-          matrix_temp[row_id][col_id] = [1, -1].product([1, -1])
-            .map { |i| matrix[row_id+i[1]][col_id+i[0]] }
-            .reduce(:+).to_f / 4
+          neighbors = [col_id - 1, col_id + 1].product([row_id - 1, row_id + 1]).map{|i, j| matrix[i][j]}
+          matrix_temp[row_id][col_id] = neighbors.reduce(:+) / 4.0
         end
       end
     end
