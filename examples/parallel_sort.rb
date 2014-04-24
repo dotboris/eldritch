@@ -16,12 +16,9 @@ def merge_sort(a, b)
   merged + (a.empty? ? b : a)
 end
 
-$threshold = 100
-
 def parallel_sort(array)
-  if array.length < $threshold
-    return array.sort
-  end
+  return array if array.size <= 1
+
   mid = (array.length / 2).floor
 
   first = async { parallel_sort(array.slice(0, mid)) }
@@ -31,9 +28,8 @@ def parallel_sort(array)
 end
 
 def not_parallel_sort(array)
-  if array.length < $threshold
-    return array.sort
-  end
+  return array if array.size <= 1
+
   mid = (array.length / 2).floor
 
   first = not_parallel_sort(array.slice(0, mid))
