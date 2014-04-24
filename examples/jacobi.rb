@@ -23,7 +23,7 @@ def jacobi(matrix)
   while max_diff > $epsilon do
     matrix_temp = Marshal.load( Marshal.dump(matrix) )
 
-    together do |group|
+    together do
       ( 1..matrix_height ).each do |row_id|
         async do
           ( 1..matrix_width ).each do |col_id|
