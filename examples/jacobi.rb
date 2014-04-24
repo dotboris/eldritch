@@ -17,7 +17,7 @@ matrix = [
   [-1, -1, -1, -1, -1, -1]
 ]
 
-$epsilon = 0.001
+epsilon = 0.001
 
 print_matrix matrix
 puts
@@ -25,9 +25,9 @@ puts
 matrix_height = matrix.length - 2
 matrix_width = matrix[0].length - 2
 
-max_diff = $epsilon + 1
+max_diff = epsilon + 1
 iterations = 1
-while max_diff > $epsilon do
+while max_diff > epsilon do
   matrix_temp = Marshal.load(Marshal.dump(matrix))
 
   together do
