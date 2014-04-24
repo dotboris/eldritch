@@ -1,6 +1,12 @@
 #!/usr/bin/env ruby
 require 'eldritch'
-require 'pp' #pretty print
+
+def print_matrix(matrix)
+  matrix.each do |line|
+    formatted = line.map{|i| '% 10.5f' % i }
+    puts "[ #{formatted.join(', ')} ]"
+  end
+end
 
 matrix_example = [
   [-1, -1, -1, -1, -1, -1],
@@ -12,7 +18,7 @@ matrix_example = [
 
 $epsilon = 0.001
 def jacobi(matrix)
-  pp matrix
+  print_matrix matrix
   puts ''
 
   matrix_height = matrix.length - 2
@@ -41,11 +47,11 @@ def jacobi(matrix)
                                 .max
     matrix = matrix_temp
 
-    print 'Iteration '
-    pp matrix
+    puts 'Iteration '
+    print_matrix matrix
     puts iterations
     iterations+=1
-    pp max_diff
+    puts max_diff
     puts ''
   end
 end
