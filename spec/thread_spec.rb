@@ -1,7 +1,5 @@
 require 'spec_helper'
-require 'eldritch/refinements/thread'
-
-using Eldritch::Refinements
+require 'eldritch/core_ext/thread'
 
 describe Thread do
   let(:thread) { Thread.new {} }

@@ -1,8 +1,6 @@
 module Eldritch
   # Runs a block in parallel and allows for interaction with said block
   class Task
-    using Eldritch::Refinements
-
     attr_writer :value
 
     # @return [Thread] underlying ruby thread

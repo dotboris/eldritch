@@ -4,8 +4,6 @@ module Eldritch
   # Represents a group of {Task tasks} or {DSL#async async calls/block}.
   # It is used to act upon all the tasks in the group.
   class Group
-    using Eldritch::Refinements
-
     def initialize
       @tasks = []
       @mutex = Mutex.new

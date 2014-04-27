@@ -5,8 +5,6 @@ module Eldritch
   # - {#together together blocks}
   # - {#sync sync keyword}
   module DSL
-    using Eldritch::Refinements
-
     # Creates an asynchronous method or starts an async block
     #
     # If a block is passed, this will be an async block.
