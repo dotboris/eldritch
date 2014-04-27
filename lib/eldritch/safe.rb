@@ -20,6 +20,6 @@ module Eldritch
   #     extend Eldritch::DSL   # for async method declaration
   #   end
   def self.inject_dsl
-    Object.include Eldritch::DSL
+    Object.send :include, Eldritch::DSL
   end
 end
