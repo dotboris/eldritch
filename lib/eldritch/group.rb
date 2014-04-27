@@ -12,7 +12,7 @@ module Eldritch
 
     # @return [Array<Task>] the other async calls/blocks in the group
     def others
-      @tasks - [Thread.current.task]
+      @tasks - [Thread.current.eldritch_task]
     end
 
     def <<(task)

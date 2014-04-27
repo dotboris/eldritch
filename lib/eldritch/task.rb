@@ -25,13 +25,13 @@ module Eldritch
     #   task.start  # calls the block in parallel
     def start
       @thread = Thread.new self, &@block
-      @thread.task = self
+      @thread.eldritch_task = self
     end
 
     # Waits for the task to complete
     def wait
       @thread.join
-      @thread.task = nil
+      @thread.eldritch_task = nil
     end
 
     # The return value of the task

@@ -10,8 +10,8 @@ describe Thread do
   end
 
   it 'should have a task accessor' do
-    expect(thread).to respond_to(:task)
-    expect(thread).to respond_to(:task=)
+    expect(thread).to respond_to(:eldritch_task)
+    expect(thread).to respond_to(:eldritch_task=)
   end
 
   describe '#group' do

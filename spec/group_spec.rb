@@ -46,7 +46,7 @@ describe Eldritch::Group do
   describe '#others' do
     it 'should return an empty array when there is only one task' do
       task = double('task').as_null_object
-      allow(Thread.current).to receive(:task).and_return(task)
+      allow(Thread.current).to receive(:eldritch_task).and_return(task)
 
       group << task
 
@@ -56,7 +56,7 @@ describe Eldritch::Group do
 
     it 'should return all the task except the current one' do
       task = double('task').as_null_object
-      allow(Thread.current).to receive(:task).and_return(task)
+      allow(Thread.current).to receive(:eldritch_task).and_return(task)
       other_task = double('other task').as_null_object
 
       group << task
@@ -96,7 +96,7 @@ describe Eldritch::Group do
     it 'should not call abort on current task' do
       task = double('task').as_null_object
       expect(task).not_to receive(:abort)
-      allow(Thread.current).to receive(:task).and_return(task)
+      allow(Thread.current).to receive(:eldritch_task).and_return(task)
 
       group << task
       group.abort
@@ -115,7 +115,7 @@ describe Eldritch::Group do
     it 'should not call interrupt on current task' do
       task = double('task').as_null_object
       expect(task).not_to receive(:interrupt)
-      allow(Thread.current).to receive(:task).and_return(task)
+      allow(Thread.current).to receive(:eldritch_task).and_return(task)
 
       group << task
       group.interrupt

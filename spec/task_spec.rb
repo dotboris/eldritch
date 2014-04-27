@@ -33,7 +33,7 @@ describe Eldritch::Task do
     end
 
     it 'should set the thread task' do
-      expect(thread).to receive(:task=).with(task)
+      expect(thread).to receive(:eldritch_task=).with(task)
 
       task.start
     end
@@ -50,7 +50,7 @@ describe Eldritch::Task do
     it 'should set the thread task to nil' do
       task.start
 
-      expect(thread).to receive(:task=).with(nil)
+      expect(thread).to receive(:eldritch_task=).with(nil)
       task.wait
     end
   end
@@ -66,7 +66,7 @@ describe Eldritch::Task do
     it 'should set the thread task to nil' do
       task.start
 
-      expect(thread).to receive(:task=).with(nil)
+      expect(thread).to receive(:eldritch_task=).with(nil)
       task.value
     end
 
