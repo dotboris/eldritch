@@ -5,15 +5,13 @@ describe Thread do
   let(:thread) { Thread.new {} }
 
   it 'should have group accessor' do
-    # refinements don't work with #respond_to? and send, we have to check for errors
-    expect{thread.group}.not_to raise_error
-    expect{thread.group = nil}.not_to raise_error
+    expect(thread).to respond_to(:group)
+    expect(thread).to respond_to(:group=)
   end
 
   it 'should have a task accessor' do
-    # refinements don't work with #respond_to? and send, we have to check for errors
-    expect{thread.task}.not_to raise_error
-    expect{thread.task = nil}.not_to raise_error
+    expect(thread).to respond_to(:task)
+    expect(thread).to respond_to(:task=)
   end
 
   describe '#group' do
