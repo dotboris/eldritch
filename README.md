@@ -106,12 +106,11 @@ MRI has this nasty little feature called a _GIL_ or _Global Interpreter Lock_. T
 thread can run at a time. Let's say that you have 4 cores, running threaded code on MRI will only make use of 1 core.
 Sometimes, you might not gain a speed boost if you make code parallel. This could the case even if theory says otherwise.
 
-Not all ruby implementations use a _GIL_. For example, jRuby does not use a _GIL_. The problem with using jRuby, is that
-this gem requires ruby >= 2.1.0 and jRuby only supports up to 1.9.3 (as of writing this).
+Not all ruby implementations use a _GIL_. For example, jRuby does not use a _GIL_.
 
-You will probably see a speed boost if your code does a lot of IO or anything that's blocking. In that case running on a
-single core is not that much of a hindrance, because most of the threads will be blocked and your code should run more
-often.
+If your ruby implementation has a _GIL_, you will probably see a speed boost if your code does a lot of IO or anything
+that's blocking. In that case running on a single core is not that much of a hindrance, because most of the threads will
+be blocked and your code should run more often.
 
 Running examples
 ----------------
@@ -120,6 +119,10 @@ If you installed eldritch with gem, you can just run the examples directly. If y
 this repository you need to add `lib/` to the include path.
 
     $ ruby -Ilib examples/the_example.rb
+
+Be aware that if you are running ruby < 2.1.0, some the examples may not work. All the examples that define async
+methods with `async def something; end` will not work. This is because since ruby 2.1.0 def returns the name of the
+method defined as a symbol.
 
 Installation
 ------------
