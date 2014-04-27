@@ -74,15 +74,15 @@ module Eldritch
     # @yield [Group] group of async blocks/calls
     # @see Group Group class
     def together
-      old = Thread.current.group
+      old = Thread.current.eldritch_group
 
       group = Group.new
-      Thread.current.group = group
+      Thread.current.eldritch_group = group
 
       yield group
 
       group.wait_all
-      Thread.current.group = old
+      Thread.current.eldritch_group = old
     end
 
     private
@@ -94,7 +94,7 @@ module Eldritch
         rescue InterruptedError
         end
       end
-      Thread.current.group << task
+      Thread.current.eldritch_group << task
       task
     end
 

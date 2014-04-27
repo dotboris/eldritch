@@ -1,12 +1,12 @@
 class Thread
-  attr_writer :group
+  attr_writer :eldritch_group
   attr_accessor :task
 
-  def group
-    @group ||= Eldritch::NilGroup.new
+  def eldritch_group
+    @eldritch_group ||= Eldritch::NilGroup.new
   end
 
-  def in_group?
-    !group.nil?
+  def in_eldritch_group?
+    !eldritch_group.nil?
   end
 end
