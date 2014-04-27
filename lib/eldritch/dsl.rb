@@ -25,6 +25,12 @@ module Eldritch
     #
     #   foo
     #   #=> <Task>
+    # If you are using ruby < 2.1.0, you will need to define async methods like so:
+    #
+    #   def foo
+    #     # will run in parallel
+    #   end
+    #   async :foo
     #
     # @param [Symbol] method the name of the async method.
     # @return [Task] a task representing the async method or block
