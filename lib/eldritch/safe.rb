@@ -1,5 +1,5 @@
 require 'eldritch/version'
-require 'eldritch/refinements/thread'
+require 'eldritch/core_ext/thread'
 require 'eldritch/task'
 require 'eldritch/dsl'
 require 'eldritch/group'
