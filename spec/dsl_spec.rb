@@ -108,7 +108,8 @@ describe Eldritch::DSL do
     context 'with 1 argument' do
       before do
         klass.class_eval do
-          async def foo; end
+          def foo; end
+          async :foo
         end
       end
 
@@ -120,7 +121,8 @@ describe Eldritch::DSL do
         expect(klass).to receive(:define_method).with(:foo)
 
         klass.class_eval do
-          async def foo; end
+          def foo; end
+          async :foo
         end
       end
 
@@ -134,7 +136,8 @@ describe Eldritch::DSL do
 
         it 'should pass all arguments' do
           klass.class_eval do
-            async def foo(_,_,_); end
+            def foo(_,_,_); end
+            async :foo
           end
           instance = klass.new
           expect(instance).to receive(:__async_foo).with(1,2,3)
@@ -146,7 +149,8 @@ describe Eldritch::DSL do
           expect(task).to receive(:value=).with(42)
 
           klass.class_eval do
-            async def foo; 42; end
+            def foo; 42; end
+            async :foo
           end
           instance = klass.new
 
