@@ -33,6 +33,20 @@ send_email(some_email) # runs in the background
 # ...
 ```
 
+#### ruby 1.9.3 and ruby 2.0.0
+
+For all versions of ruby before 2.1.0, you need to define async methods like so:
+
+```ruby
+def foo
+  # stuff
+end
+async :foo
+```
+
+Since ruby 2.1.0, def returns the name of the method defined as a symbol. This allows for the cleaner `async def foo`
+syntax.
+
 ### async blocks
 
 Async blocks are run concurrently.
