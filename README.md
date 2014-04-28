@@ -12,6 +12,17 @@ Code quality
 [![Coverage Status](http://coveralls.io/repos/beraboris/eldritch/badge.png)](http://coveralls.io/r/beraboris/eldritch)
 [![Code Climate](http://codeclimate.com/github/beraboris/eldritch.png)](http://codeclimate.com/github/beraboris/eldritch)
 
+Usage
+-----
+
+1. Install it `gem install eldritch`
+2. Require it `require 'eldritch'`
+3. Use it (see features below)
+
+By default eldritch will inject the DSL into the global scope. If you don't want this, you can require `eldritch/safe`
+instead of `eldritch`. You can then include the Eldritch::DSL module however you want. You need to both include and
+extend the module.
+
 Features
 --------
 
@@ -33,7 +44,7 @@ send_email(some_email) # runs in the background
 # ...
 ```
 
-#### ruby 1.9.3 and ruby 2.0.0
+#### ruby 1.9.3 and 2.0.0
 
 For all versions of ruby before 2.1.0, you need to define async methods like so:
 
@@ -135,20 +146,5 @@ this repository you need to add `lib/` to the include path.
     $ ruby -Ilib examples/the_example.rb
 
 Be aware that if you are running ruby < 2.1.0, some the examples may not work. All the examples that define async
-methods with `async def something; end` will not work. This is because since ruby 2.1.0 def returns the name of the
+methods with `async def something; end` will not work. This is because, since ruby 2.1.0, def returns the name of the
 method defined as a symbol.
-
-Installation
-------------
-
-Add this line to your application's Gemfile:
-
-    gem 'eldritch'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install eldritch
