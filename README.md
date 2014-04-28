@@ -20,8 +20,18 @@ Usage
 3. Use it (see features below)
 
 By default eldritch will inject the DSL into the global scope. If you don't want this, you can require `eldritch/safe`
-instead of `eldritch`. You can then include the Eldritch::DSL module however you want. You need to both include and
-extend the module.
+instead of `eldritch`.
+
+```ruby
+require 'eldricth/safe'
+
+class MyClass
+  include Eldritch::DSL
+  extend Eldritch::DSL
+
+  # The DSL is available in this class
+end
+```
 
 Features
 --------
@@ -39,9 +49,7 @@ async def send_email(email)
   # ...
 end
 
-# ...
 send_email(some_email) # runs in the background
-# ...
 ```
 
 #### ruby 1.9.3 and 2.0.0
@@ -65,17 +73,14 @@ Async blocks are run concurrently.
 ```ruby
 require 'eldritch'
 
-# do some work
 async do
-  # some long running task ...
+  # runs in the background
 end
-# continue working
 ```
 
 ### tasks
 
-Async blocks and async methods both return tasks. These can be used to interact with the async block/method. As of now,
-you can wait for the task to finish or you can get its return value.
+Async blocks and async methods both return tasks. These can be used to interact with the async block/method.
 
 ```ruby
 require 'eldritch'
@@ -84,9 +89,7 @@ task = async do
   # calculate something that will take a long time
 end
 
-# ...
-
-# now we need to result of the task
+# we need to result of the task
 res = 2 + task.value # waits for the task to finish
 ```
 
