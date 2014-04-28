@@ -39,19 +39,19 @@ describe Eldritch::Task do
     end
   end
 
-  describe '#wait' do
+  describe '#join' do
     it 'should join the thread' do
       task.start
 
       expect(task.thread).to receive(:join)
-      task.wait
+      task.join
     end
 
     it 'should set the thread task to nil' do
       task.start
 
       expect(thread).to receive(:eldritch_task=).with(nil)
-      task.wait
+      task.join
     end
   end
 

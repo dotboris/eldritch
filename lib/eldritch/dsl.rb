@@ -87,7 +87,7 @@ module Eldritch
 
       yield group
 
-      group.wait_all
+      group.join_all
       Thread.current.eldritch_group = old
     end
 

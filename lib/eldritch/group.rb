@@ -34,8 +34,8 @@ module Eldritch
       @mutex.synchronize { block.call }
     end
 
-    def wait_all
-      @tasks.each {|t| t.wait}
+    def join_all
+      @tasks.each &:join
     end
 
     # Aborts the other async calls/blocks in the group

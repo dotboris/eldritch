@@ -27,7 +27,7 @@ module Eldritch
     end
 
     # Waits for the task to complete
-    def wait
+    def join
       @thread.join
       unset_thread_task
     end

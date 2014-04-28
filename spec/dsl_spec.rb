@@ -35,11 +35,11 @@ describe Eldritch::DSL do
       klass.together {}
     end
 
-    it 'should wait on all tasks' do
+    it 'should join on all tasks' do
       group = double('group').as_null_object
       allow(Eldritch::Group).to receive(:new).and_return(group)
 
-      expect(group).to receive(:wait_all)
+      expect(group).to receive(:join_all)
 
       klass.together {}
     end

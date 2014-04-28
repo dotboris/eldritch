@@ -66,15 +66,15 @@ describe Eldritch::Group do
     end
   end
 
-  describe '#wait_all' do
-    it 'should call wait on all tasks' do
+  describe '#join_all' do
+    it 'should call join on all tasks' do
       task = double('task')
       allow(task).to receive(:start)
       group << task
 
-      expect(task).to receive(:wait)
+      expect(task).to receive(:join)
 
-      group.wait_all
+      group.join_all
     end
   end
 
