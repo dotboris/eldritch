@@ -29,7 +29,7 @@ module Eldritch
     # Waits for the task to complete
     def wait
       @thread.join
-      @thread.eldritch_task = nil
+      unset_thread_task
     end
 
     # The return value of the task
@@ -38,8 +38,9 @@ module Eldritch
     #
     # @return whatever the block returns
     def value
-      wait
-      @thread.value
+      val = @thread.value
+      unset_thread_task
+      val
     end
 
     # Forces the task to end
@@ -47,6 +48,7 @@ module Eldritch
     # This kills the underlying thread. This is a dangerous call.
     def abort
       @thread.kill
+      unset_thread_task
     end
 
     # Interrupts the task
@@ -57,6 +59,13 @@ module Eldritch
     # You can still handle the exception yourself.
     def interrupt
       @thread.raise InterruptedError.new
+      unset_thread_task
+    end
+
+    private
+
+    def unset_thread_task
+      @thread.eldritch_task = nil
     end
   end
 end

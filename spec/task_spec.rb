@@ -56,13 +56,6 @@ describe Eldritch::Task do
   end
 
   describe '#value' do
-    it 'should join the thread' do
-      task.start
-
-      expect(task.thread).to receive(:join)
-      task.value
-    end
-
     it 'should set the thread task to nil' do
       task.start
 
@@ -84,6 +77,13 @@ describe Eldritch::Task do
   end
 
   describe '#abort' do
+    it 'should set the thread task to nil' do
+      task.start
+      expect(thread).to receive(:eldritch_task=).with(nil)
+
+      task.abort
+    end
+
     it 'should kill the thread' do
       expect(thread).to receive(:kill)
 
@@ -93,6 +93,13 @@ describe Eldritch::Task do
   end
 
   describe '#interrupt' do
+    it 'should set the thread task to nil' do
+      task.start
+      expect(thread).to receive(:eldritch_task=).with(nil)
+
+      task.interrupt
+    end
+
     it 'should raise an interrupted error on the thread' do
       expect(thread).to receive(:raise).with(kind_of(Eldritch::InterruptedError))
 
