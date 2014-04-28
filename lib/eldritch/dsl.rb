@@ -94,10 +94,11 @@ module Eldritch
     private
 
     def async_block(&block)
-      task = Task.new do |t|
+      task = Task.new do
         begin
-          t.value = block.call
+          block.call
         rescue InterruptedError
+          # exit silently
         end
       end
       Thread.current.eldritch_group << task

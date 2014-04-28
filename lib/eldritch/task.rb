@@ -1,8 +1,6 @@
 module Eldritch
   # Runs a block in parallel and allows for interaction with said block
   class Task
-    attr_writer :value
-
     # @return [Thread] underlying ruby thread
     attr_reader :thread
 
@@ -24,7 +22,7 @@ module Eldritch
     #   end
     #   task.start  # calls the block in parallel
     def start
-      @thread = Thread.new self, &@block
+      @thread = Thread.new &@block
       @thread.eldritch_task = self
     end
 
@@ -41,7 +39,7 @@ module Eldritch
     # @return whatever the block returns
     def value
       wait
-      @value
+      @thread.value
     end
 
     # Forces the task to end

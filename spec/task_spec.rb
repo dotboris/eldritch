@@ -27,7 +27,7 @@ describe Eldritch::Task do
     end
 
     it 'should start a thread' do
-      expect(Thread).to receive(:new).with(task)
+      expect(Thread).to receive(:new)
 
       task.start
     end
@@ -70,9 +70,15 @@ describe Eldritch::Task do
       task.value
     end
 
-    it 'should return the value' do
-      task.value = 42
+    it 'should call Thread#value' do
       task.start
+      expect(thread).to receive(:value)
+      task.value
+    end
+
+    it 'should return what Thread#value returns' do
+      task.start
+      allow(thread).to receive(:value).and_return(42)
       expect(task.value).to eql(42)
     end
   end

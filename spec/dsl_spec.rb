@@ -92,12 +92,6 @@ describe Eldritch::DSL do
         expect(klass.async {}).to eql(task)
       end
 
-      it 'should set the task value' do
-        expect(task).to receive(:value=).with('something')
-
-        klass.async { 'something' }
-      end
-
       it 'should eat any interrupted errors' do
         block = proc { raise Eldritch::InterruptedError }
 
@@ -143,18 +137,6 @@ describe Eldritch::DSL do
           expect(instance).to receive(:__async_foo).with(1,2,3)
 
           instance.foo(1,2,3)
-        end
-
-        it 'should set the task value' do
-          expect(task).to receive(:value=).with(42)
-
-          klass.class_eval do
-            def foo; 42; end
-            async :foo
-          end
-          instance = klass.new
-
-          instance.foo
         end
       end
     end
