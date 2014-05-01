@@ -38,7 +38,7 @@ Features
 
 ### async methods
 
-Async methods run concurrently when called. The caller is returned controlled right away and the method runs in the
+Async methods run concurrently when called. The caller is returned control right away and the method runs in the
 background.
 
 ```ruby
