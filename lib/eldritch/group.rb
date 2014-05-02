@@ -1,4 +1,5 @@
 require 'thread'
+require 'reentrant_mutex'
 
 module Eldritch
   # Represents a group of {Task tasks} or {DSL#async async calls/block}.
@@ -6,7 +7,7 @@ module Eldritch
   class Group
     def initialize
       @tasks = []
-      @mutex = Mutex.new
+      @mutex = ReentrantMutex.new
       @accept = true
     end
 
