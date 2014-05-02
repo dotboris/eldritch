@@ -27,11 +27,13 @@ together do |group|
     async do
       slice.each do |password|
         if hash == Digest::MD5.hexdigest(password)
-          group.synchronize { puts password }
+          group.synchronize do
+            puts password
 
-          # stop all the other threads
-          group.interrupt
-          break
+            # stop the other tasks
+            group.interrupt
+            break
+          end
         end
       end
     end
