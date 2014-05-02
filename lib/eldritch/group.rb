@@ -17,15 +17,12 @@ module Eldritch
     end
 
     def <<(task)
-      accept = nil
-
       @mutex.synchronize do
-        # copy accept for the task.start condition
-        accept = @accept
-        @tasks << task if accept
+        if @accept
+          @tasks << task
+          task.start
+        end
       end
-
-      task.start if accept
     end
 
     # Yields the block in mutual exclusion with all the async calls/tasks
