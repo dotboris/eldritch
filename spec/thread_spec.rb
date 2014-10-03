@@ -29,17 +29,17 @@ describe Thread do
   describe '#in_group?' do
     it 'should be false when group is nil' do
       thread.eldritch_group = nil
-      expect(thread.in_eldritch_group?).to be_false
+      expect(thread.in_eldritch_group?).to be_falsey
     end
 
     it 'should be false when group is a NilGroup' do
       thread.eldritch_group = Eldritch::NilGroup.new
-      expect(thread.in_eldritch_group?).to be_false
+      expect(thread.in_eldritch_group?).to be_falsey
     end
 
     it 'should be true when group is set' do
       thread.eldritch_group = 2
-      expect(thread.in_eldritch_group?).to be_true
+      expect(thread.in_eldritch_group?).to be_truthy
     end
   end
 end

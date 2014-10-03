@@ -137,7 +137,7 @@ describe Eldritch::NilGroup do
 
   describe '#nil?' do
     it 'should be true' do
-      expect(group.nil?).to be_true
+      expect(group.nil?).to be_truthy
     end
   end
 end
