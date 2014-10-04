@@ -28,9 +28,9 @@ describe Eldritch::DSL do
     it 'should set the current thread group' do
       group = double('group').as_null_object
       allow(Eldritch::Group).to receive(:new).and_return(group)
-      allow(Thread.current).to receive(:eldritch_group=).with(anything)
+      allow(Eldritch).to receive(:group=).with(anything)
 
-      expect(Thread.current).to receive(:eldritch_group=).with(group)
+      expect(Eldritch).to receive(:group=).with(group)
 
       klass.together {}
     end
@@ -48,11 +48,11 @@ describe Eldritch::DSL do
       group = double('group').as_null_object
       old_group = double('old group').as_null_object
       allow(Eldritch::Group).to receive(:new).and_return(group)
-      allow(Thread.current).to receive(:eldritch_group).and_return(old_group)
+      allow(Eldritch).to receive(:group).and_return(old_group)
 
       klass.together {}
 
-      expect(Thread.current.eldritch_group).to eql(old_group)
+      expect(Eldritch.group).to eql(old_group)
     end
 
     it 'should yield it the new group' do
@@ -78,7 +78,7 @@ describe Eldritch::DSL do
         call_me.call(task)
       end
 
-      allow(Thread.current).to receive(:eldritch_group).and_return(group)
+      allow(Eldritch).to receive(:group).and_return(group)
     end
 
     context 'with 0 arguments' do

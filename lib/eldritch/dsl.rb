@@ -1,3 +1,5 @@
+require 'eldritch/thread_helpers'
+
 module Eldritch
   # Provides DSL for:
   # - {#async async methods}
@@ -80,15 +82,15 @@ module Eldritch
     # @yield [Group] group of async blocks/calls
     # @see Group Group class
     def together
-      old = Thread.current.eldritch_group
+      old = Eldritch.group
 
       group = Group.new
-      Thread.current.eldritch_group = group
+      Eldritch.group = group
 
       yield group
 
       group.join_all
-      Thread.current.eldritch_group = old
+      Eldritch.group = old
     end
 
     private
@@ -101,7 +103,7 @@ module Eldritch
           # exit silently
         end
       end
-      Thread.current.eldritch_group << task
+      Eldritch.group << task
       task
     end
 
