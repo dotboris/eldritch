@@ -5,3 +5,6 @@ rvm:
   - 2.4
   - 2.5
   - jruby
+
+allow_failures:
+  - rvm: 2.5
