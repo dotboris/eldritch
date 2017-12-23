@@ -7,8 +7,8 @@ Eldritch
 
 _The dark arts of concurrent programming._
 
-A DSL that adds parallel programming constructs to make your life a little easier.
-
+A DSL that adds parallel programming constructs to make your life a little
+easier.
 
 Usage
 -----
@@ -17,8 +17,8 @@ Usage
 1.  Require it `require 'eldritch'`
 1.  Use it (see features below)
 
-By default eldritch will inject the DSL into the global scope. If you don't want this, you can require `eldritch/safe`
-instead of `eldritch`.
+By default eldritch will inject the DSL into the global scope. If you don't want
+this, you can require `eldritch/safe` instead of `eldritch`.
 
 ```ruby
 require 'eldricth/safe'
@@ -63,8 +63,8 @@ Features
 
 ### async methods
 
-Async methods run concurrently when called. The caller is returned control right away and the method runs in the
-background.
+Async methods run concurrently when called. The caller is returned control right
+away and the method runs in the background.
 
 ```ruby
 require 'eldritch'
@@ -88,8 +88,8 @@ end
 async :foo
 ```
 
-Since ruby 2.1.0, def returns the name of the method defined as a symbol. This allows for the cleaner `async def foo`
-syntax.
+Since ruby 2.1.0, def returns the name of the method defined as a symbol. This
+allows for the cleaner `async def foo` syntax.
 
 ### async blocks
 
@@ -105,7 +105,8 @@ end
 
 ### tasks
 
-Async blocks and async methods both return tasks. These can be used to interact with the async block/method.
+Async blocks and async methods both return tasks. These can be used to interact
+with the async block/method.
 
 ```ruby
 require 'eldritch'
@@ -120,8 +121,9 @@ res = 2 + task.value # waits for the task to finish
 
 ### together blocks
 
-Together blocks are used to control all async blocks and methods within them as a group. Before exiting, together blocks
-wait for all their async calls to be done before returning.
+Together blocks are used to control all async blocks and methods within them as
+a group. Before exiting, together blocks wait for all their async calls to be
+done before returning.
 
 ```ruby
 require 'eldritch'
@@ -136,8 +138,9 @@ end
 # all 1000 tasks are done
 ```
 
-These blocks can also take an argument. This argument is a group that can be used to control the async calls in the
-block. See the documentation for Eldritch::Group for more information.
+These blocks can also take an argument. This argument is a group that can be
+used to control the async calls in the block. See the documentation for
+Eldritch::Group for more information.
 
 ```ruby
 require 'eldritch'
@@ -155,12 +158,16 @@ end
 A note on GIL
 -------------
 
-MRI has this nasty little feature called a _GIL_ or _Global Interpreter Lock_. This lock makes it so that only one
-thread can run at a time. Let's say that you have 4 cores, running threaded code on MRI will only make use of 1 core.
-Sometimes, you might not gain a speed boost if you make code parallel. This could the case even if theory says otherwise.
+MRI has this nasty little feature called a _GIL_ or _Global Interpreter Lock_.
+This lock makes it so that only one thread can run at a time. Let's say that you
+have 4 cores, running threaded code on MRI will only make use of 1 core.
+Sometimes, you might not gain a speed boost if you make code parallel. This
+could the case even if theory says otherwise.
 
-Not all ruby implementations use a _GIL_. For example, jRuby does not use a _GIL_.
+Not all ruby implementations use a _GIL_. For example, jRuby does not use a
+_GIL_.
 
-If your ruby implementation has a _GIL_, you will probably see a speed boost if your code does a lot of IO or anything
-that's blocking. In that case running on a single core is not that much of a hindrance, because most of the threads will
+If your ruby implementation has a _GIL_, you will probably see a speed boost if
+your code does a lot of IO or anything that's blocking. In that case running on
+a single core is not that much of a hindrance, because most of the threads will
 be blocked and your code should run more often.
