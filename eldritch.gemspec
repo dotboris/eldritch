@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.description   = 'Adds support for async methods and async blocks. ' \
                        'Adds a together block that allows async ' \
                        'methods/blocks to be controlled as a group.'
-  spec.homepage      = 'https://github.com/beraboris/eldritch'
+  spec.homepage      = 'https://github.com/dotboris/eldritch'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
