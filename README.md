@@ -1,16 +1,14 @@
 Eldritch
 ========
 
+[![Build Status](http://travis-ci.org/dotboris/eldritch.svg?branch=master)](http://travis-ci.org/dotboris/eldritch)
+[![Coverage Status](http://coveralls.io/repos/dotboris/eldritch/badge.png)](http://coveralls.io/r/dotboris/eldritch)
+[![Code Climate](http://codeclimate.com/github/dotboris/eldritch.png)](http://codeclimate.com/github/dotboris/eldritch)
+
 _The dark arts of concurrent programming._
 
 A DSL that adds parallel programming constructs to make your life a little easier.
 
-Code quality
-------------
-
-[![Build Status](http://travis-ci.org/dotboris/eldritch.svg?branch=master)](http://travis-ci.org/dotboris/eldritch)
-[![Coverage Status](http://coveralls.io/repos/dotboris/eldritch/badge.png)](http://coveralls.io/r/dotboris/eldritch)
-[![Code Climate](http://codeclimate.com/github/dotboris/eldritch.png)](http://codeclimate.com/github/dotboris/eldritch)
 
 Usage
 -----
@@ -31,6 +29,33 @@ class MyClass
 
   # The DSL is available in this class
 end
+```
+
+Development
+-----------
+
+### Setup
+
+```sh
+bundler install
+```
+
+### Running tests
+
+```sh
+bundler exec rake
+```
+
+### Running examples
+
+```sh
+ruby -I lib examples/{your favorite example}.rb
+```
+
+### Generate doc
+
+```sh
+bundle exec rake doc
 ```
 
 Features
@@ -139,17 +164,3 @@ Not all ruby implementations use a _GIL_. For example, jRuby does not use a _GIL
 If your ruby implementation has a _GIL_, you will probably see a speed boost if your code does a lot of IO or anything
 that's blocking. In that case running on a single core is not that much of a hindrance, because most of the threads will
 be blocked and your code should run more often.
-
-Running examples
-----------------
-
-If you installed eldritch with gem, you can just run the examples directly. If you are running them against a clone of
-this repository you need to add `lib/` to the include path.
-
-```sh
-ruby -Ilib examples/the_example.rb
-```
-
-Be aware that if you are running ruby < 2.1.0, some the examples may not work. All the examples that define async
-methods with `async def something; end` will not work. This is because, since ruby 2.1.0, def returns the name of the
-method defined as a symbol.
