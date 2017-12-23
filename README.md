@@ -15,9 +15,9 @@ Code quality
 Usage
 -----
 
-1. Install it `gem install eldritch`
-2. Require it `require 'eldritch'`
-3. Use it (see features below)
+1.  Install it `gem install eldritch`
+1.  Require it `require 'eldritch'`
+1.  Use it (see features below)
 
 By default eldritch will inject the DSL into the global scope. If you don't want this, you can require `eldritch/safe`
 instead of `eldritch`.
@@ -146,7 +146,9 @@ Running examples
 If you installed eldritch with gem, you can just run the examples directly. If you are running them against a clone of
 this repository you need to add `lib/` to the include path.
 
-    $ ruby -Ilib examples/the_example.rb
+```sh
+ruby -Ilib examples/the_example.rb
+```
 
 Be aware that if you are running ruby < 2.1.0, some the examples may not work. All the examples that define async
 methods with `async def something; end` will not work. This is because, since ruby 2.1.0, def returns the name of the
