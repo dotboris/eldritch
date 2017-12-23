@@ -8,9 +8,9 @@ A DSL that adds parallel programming constructs to make your life a little easie
 Code quality
 ------------
 
-[![Build Status](http://travis-ci.org/beraboris/eldritch.svg?branch=master)](http://travis-ci.org/beraboris/eldritch)
-[![Coverage Status](http://coveralls.io/repos/beraboris/eldritch/badge.png)](http://coveralls.io/r/beraboris/eldritch)
-[![Code Climate](http://codeclimate.com/github/beraboris/eldritch.png)](http://codeclimate.com/github/beraboris/eldritch)
+[![Build Status](http://travis-ci.org/dotboris/eldritch.svg?branch=master)](http://travis-ci.org/dotboris/eldritch)
+[![Coverage Status](http://coveralls.io/repos/dotboris/eldritch/badge.png)](http://coveralls.io/r/dotboris/eldritch)
+[![Code Climate](http://codeclimate.com/github/dotboris/eldritch.png)](http://codeclimate.com/github/dotboris/eldritch)
 
 Usage
 -----
