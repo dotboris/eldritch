@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'reentrant_mutex', '~> 1.1.0'
 
   spec.add_development_dependency 'bundler', '~> 1.5'
-  spec.add_development_dependency 'rake', '~> 11.0'
+  spec.add_development_dependency 'rake', '~> 12.3'
   spec.add_development_dependency 'rspec', '~> 2.14'
   spec.add_development_dependency 'yard', '~> 0.9.11'
 end
